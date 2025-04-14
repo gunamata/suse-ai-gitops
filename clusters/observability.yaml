@@ -1,8 +1,17 @@
 ---
+apiVersion: turtles-capi.cattle.io/v1alpha1
+kind: CAPIProvider
+metadata:
+  name: vcluster
+spec:
+  type: infrastructure
+---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: observability
+  labels:
+    cluster-api.cattle.io/rancher-auto-import: "true"
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
