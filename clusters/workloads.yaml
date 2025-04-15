@@ -6,11 +6,6 @@ metadata:
   labels:
     cluster-api.cattle.io/rancher-auto-import: "true"
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: workloads
----
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
