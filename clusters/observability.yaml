@@ -1,11 +1,4 @@
 ---
-apiVersion: turtles-capi.cattle.io/v1alpha1
-kind: CAPIProvider
-metadata:
-  name: vcluster
-spec:
-  type: infrastructure
----
 apiVersion: v1
 kind: Namespace
 metadata:
