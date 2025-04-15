@@ -1,6 +1,6 @@
 ---
-apiVersion: turtles-capi.cattle.io/v1alpha1
-kind: CAPIProvider
+apiVersion: operator.cluster.x-k8s.io/v1alpha2
+kind: InfrastructureProvider
 metadata:
   name: vcluster
 spec:
