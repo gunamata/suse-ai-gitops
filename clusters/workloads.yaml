@@ -37,6 +37,6 @@ spec:
       version: 0.22.1
     values: |
       exportKubeConfig:
-        secret:
-          name: workloads-kubeconfig
-          namespace: workloads
+        additionalSecrets:
+          - name: workloads-kubeconfig
+            namespace: workloads
