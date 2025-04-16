@@ -35,4 +35,8 @@ spec:
       name: vcluster
       repo: https://charts.loft.sh
       version: 0.22.1
-    values: ""
+    values: |
+      exportKubeConfig:
+        secret:
+          name: workloads-kubeconfig
+          namespace: workloads
