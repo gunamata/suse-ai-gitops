@@ -62,14 +62,13 @@ remove_helm() {
 }
 
 remove_clusterctl() {
-  if [[ "${INSTALLED_CLUSTERCTL:-false}" == "true" ]]; then
+  if [[ "${clusterctl:-false}" == "true" ]]; then
     log "Removing clusterctl..."
     $SUDO rm -f /usr/local/bin/clusterctl
   else
     log "clusterctl was not installed by this script. Skipping."
   fi
 }
-
 
 uninstall_capi() {
   if kubectl get ns rancher-turtles-system &>/dev/null; then

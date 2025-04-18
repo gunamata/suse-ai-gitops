@@ -29,6 +29,7 @@ SCRIPT_VERSION="1.0.0"
 MARKER_PATH="/usr/local/share/setup-rke2-cluster.meta"
 AUDIT_LOG="/var/log/setup-rke2-cluster.log"
 INSTALLED_HELM="false"
+INSTALLED_CLUSTERCTL="false"
 INSTALLED_RKE2="false"
 rancher_installed="false"
 FORCE_INSTALL="false"
@@ -387,4 +388,3 @@ install_rancher
 install_capi
 write_marker_file
 log "✅ Setup complete (dry-run=$DRY_RUN). Audit log: $AUDIT_LOG"
-
