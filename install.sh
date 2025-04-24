@@ -16,7 +16,7 @@
 #   --email=<email>         Set the email address for Let's Encrypt (default: you@example.com).
 #   --cert-type=<type>      Set the certificate type for Rancher (default: self-signed, options: self-signed, letsencrypt).
 #   --ingress-mode=<mode>   Set the ingress mode for NGINX (default: hostport, options: hostport, nodeport).
-#   --capi-provider=<provider> Set the CAPI provider to provision workload clusters (default: aws options: aws, vcluster)
+#   --capi-provider=<provider> Set the CAPI provider to provision workload clusters (default: k3k options: aws, vcluster, k3k)
 #   
 # Example:
 #   ./setup-rke2-cluster.sh --hostname=myrancher.example.com --bootstrap-password=SuperSecret123 --cert-type=letsencrypt
@@ -36,7 +36,7 @@ FORCE_INSTALL="false"
 DRY_RUN="false"
 CERT_TYPE="self-signed" # default value
 INGRESS_MODE="hostport" # default value
-CAPI_PROVIDER="vcluster" # default value
+CAPI_PROVIDER="k3k" # default value
 
 RANCHER_HOSTNAME="suse-ai-cluster-manager.xyz"
 RANCHER_PASSWORD="CHANGEME-$(openssl rand -hex 6)"
@@ -326,6 +326,17 @@ install_rancher() {
   rancher_installed="true"
 }
 
+install_k3k() {
+  if kubectl get ns k3k-system &> /dev/null; then
+    log "k3k already installed."
+    return
+  fi
+
+  helm repo add k3k https://rancher.github.io/k3k
+  helm repo update
+  helm install --namespace k3k-system --create-namespace k3k k3k/k3k --devel
+}
+
 install_capi() {
   if kubectl get ns rancher-turtles-system &> /dev/null; then
     log "CAPI already installed."
@@ -346,8 +357,11 @@ install_capi() {
     
   if [ "$CAPI_PROVIDER" == "vcluster" ]; then
     clusterctl init --infrastructure vcluster
+  elif [ "$CAPI_PROVIDER" == "k3k" ]; then
+    # There's no CAPI provider for k3k yet. Just using k3k chart for now.
+    install_k3k
   else
-    log "AWS CAPI Provider not supported yet!"
+    log "CAPI Provider not supported yet!"
   fi
 }
 

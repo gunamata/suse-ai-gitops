@@ -70,6 +70,14 @@ remove_clusterctl() {
   fi
 }
 
+uninstall_k3k() {
+  if kubectl get ns k3k-system &>/dev/null; then
+    log "Removing K3K..."
+    helm uninstall k3k -n k3k-system --timeout 60s || true
+    kubectl delete ns k3k-system --timeout=60s --wait=true || log "[WARN] Timeout deleting k3k-system. May require manual cleanup."
+  fi
+}
+
 uninstall_capi() {
   if kubectl get ns rancher-turtles-system &>/dev/null; then
     log "Removing CAPI..."
