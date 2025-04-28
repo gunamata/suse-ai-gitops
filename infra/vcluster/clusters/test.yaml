@@ -20,7 +20,7 @@ metadata:
   name: test
 spec:
   controlPlaneEndpoint:
-    host: "test.default.svc"
+    host: "rancher.cattle-system.svc.cluster.local"
     port: 443
   helmRelease:
     chart:
@@ -31,7 +31,7 @@ spec:
       controlPlane:
         proxy:
           extraSANs:
-          - test.default.svc
+          - rancher.cattle-system.svc.cluster.local
         service:
           spec:
             type: NodePort
